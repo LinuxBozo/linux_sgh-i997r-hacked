@@ -912,11 +912,13 @@ static int s3cfb_register_framebuffer(struct s3cfb_global *ctrl)
 #ifndef CONFIG_FRAMEBUFFER_CONSOLE
 #ifdef CONFIG_FROYO_BOOTLOADER
 			if (j == 0) {
+	            dev_info(ctrl->dev, "Init FROYO window..\n");
 				s3cfb_check_var(&ctrl->fb[j]->var, ctrl->fb[j]);
 				s3cfb_set_par(ctrl->fb[j]);
 				s3cfb_draw_logo(ctrl->fb[j]);
 				s3cfb_release_window(ctrl->fb[j]);
 			} else if (j == pdata->default_win) {
+				dev_info(ctrl->dev,"Init default window [%d]\n", j);
 				s3cfb_check_var(&ctrl->fb[j]->var, ctrl->fb[j]);
 				s3cfb_set_par(ctrl->fb[j]);
 			}
@@ -928,7 +930,7 @@ static int s3cfb_register_framebuffer(struct s3cfb_global *ctrl)
 				s3cfb_draw_logo(ctrl->fb[j]);
 
 			}
-#endif          
+#endif
 #endif
 	}
 
@@ -1145,8 +1147,8 @@ static int __devinit s3cfb_probe(struct platform_device *pdev)
 	if (ret < 0)
 		dev_err(fbdev->dev, "failed to add sysfs entries\n");
 
-	dev_info(fbdev->dev, "registered successfully\n");
-
+    dev_info(fbdev->dev, "registered successfully\n");
+	
 	return 0;
 
 err_irq:
